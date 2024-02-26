@@ -11,11 +11,11 @@ public interface IClienteService {
     public List<Cliente> findAll();
 
     @Transactional
-    void save(Cliente cliente);
+    Cliente save(Cliente cliente);
 
     @Transactional(readOnly = true)
     Cliente findById(Long id);
 
     @Transactional
-    void delete(Cliente cliente);
+    void delete(Long id);
 }
