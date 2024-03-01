@@ -23,6 +23,7 @@ public class Cliente implements Serializable {
     @Size(min = 4, max = 12)
     @Column(nullable = false)
     private String nombre;
+
     @NotEmpty
     private String apellido;
 
