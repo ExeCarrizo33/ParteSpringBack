@@ -7,6 +7,8 @@ import com.projectoSpring.springboot.backend.apirest.models.entity.Cliente;
 import com.projectoSpring.springboot.backend.apirest.models.services.IClienteService;
 import jakarta.validation.Valid;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,6 +39,12 @@ public class ClienteRestController {
         return clienteService.findAll();
     }
 
+    @GetMapping("/clientes/page/{page}")
+    public Page<Cliente> index(@PathVariable Integer page) {
+        return clienteService.findAll(PageRequest.of(page,4));
+    }
+
+
     @GetMapping("/clientes/{id}")
     public ResponseEntity<?> show(@PathVariable Long id) {
 
@@ -60,7 +68,6 @@ public class ClienteRestController {
 
     @PostMapping("/clientes")
     public ResponseEntity<?> create(@Valid @RequestBody Cliente cliente, BindingResult result) {
-        cliente.setCreateAt(new Date());
 
         Cliente clienteNew = null;
         Map<String, Object> response = new HashMap<>();
