@@ -6,6 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.projectoSpring.springboot.backend.apirest.models.entity.Cliente;
+import com.projectoSpring.springboot.backend.apirest.models.entity.Region;
 import com.projectoSpring.springboot.backend.apirest.models.services.IClienteService;
 import com.projectoSpring.springboot.backend.apirest.models.services.IUploadFileService;
 import jakarta.validation.Valid;
@@ -120,6 +121,7 @@ public class ClienteRestController {
             currentCliente.setApellido(cliente.getApellido());
             currentCliente.setEmail(cliente.getEmail());
             currentCliente.setCreateAt(cliente.getCreateAt());
+            currentCliente.setRegion(cliente.getRegion());
 
             clienteUpdated = clienteService.save(currentCliente);
         } catch (DataAccessException e) {
@@ -193,5 +195,10 @@ public class ClienteRestController {
         HttpHeaders cabecera = new HttpHeaders();
         cabecera.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"");
         return new ResponseEntity<Resource>(resource, cabecera, HttpStatus.OK);
+    }
+
+    @GetMapping("/clientes/regions")
+    public List<Region> listRegions(){
+        return  clienteService.findAllRegions();
     }
 }
