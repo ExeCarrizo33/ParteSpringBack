@@ -1,9 +1,13 @@
 package com.projectoSpring.springboot.backend.apirest.models.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 
+@Setter
+@Getter
 @Entity
 @Table(name = "regions")
 public class Region implements Serializable {
@@ -14,22 +18,6 @@ public class Region implements Serializable {
     private Long id;
 
     private String name;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     private static final long serialVersionUID = 1L;
 
