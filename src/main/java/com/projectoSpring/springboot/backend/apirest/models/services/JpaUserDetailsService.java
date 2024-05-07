@@ -3,11 +3,14 @@ package com.projectoSpring.springboot.backend.apirest.models.services;
 import com.projectoSpring.springboot.backend.apirest.models.dao.IUserDao;
 import com.projectoSpring.springboot.backend.apirest.models.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +23,9 @@ public class JpaUserDetailsService implements UserDetailsService {
 
     @Autowired
     private IUserDao iUserDao;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     @Override
@@ -35,8 +41,9 @@ public class JpaUserDetailsService implements UserDetailsService {
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
+
         return new org.springframework.security.core.userdetails.User(username,
-                user.getPassword(),
+                passwordEncoder.encode(user.getPassword()),
                 true,
                 true,
                 true,

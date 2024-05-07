@@ -8,6 +8,7 @@ import com.projectoSpring.springboot.backend.apirest.models.entity.Region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,14 @@ public class ClienteServiceImpl implements IClienteService{
 
     @Autowired
     private IClienteDao clienteDao;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public ClienteServiceImpl(IClienteDao clienteDao, PasswordEncoder passwordEncoder) {
+        this.clienteDao = clienteDao;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     @Transactional(readOnly = true)
@@ -33,6 +42,7 @@ public class ClienteServiceImpl implements IClienteService{
     @Override
     @Transactional
     public Cliente save(Cliente cliente) {
+
         return clienteDao.save(cliente);
     }
 

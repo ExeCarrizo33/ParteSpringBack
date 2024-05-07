@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -26,6 +28,7 @@ public class User implements Serializable {
 
     @Column(length = 60)
     private String password;
+    private transient PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     private Boolean enabled;
 
@@ -44,8 +47,10 @@ public class User implements Serializable {
     public User() {
 
     }
-
-
+    public void setPassword(String password) {
+        // Encrypamos la contraseña antes de almacenarla
+        this.password = passwordEncoder.encode(password);
+    }
     private static final long serialVersionUID = 1L;
 
 }
