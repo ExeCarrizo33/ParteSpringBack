@@ -19,12 +19,10 @@ public class ClienteServiceImpl implements IClienteService{
     @Autowired
     private IClienteDao clienteDao;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
-    public ClienteServiceImpl(IClienteDao clienteDao, PasswordEncoder passwordEncoder) {
+
+    public ClienteServiceImpl(IClienteDao clienteDao) {
         this.clienteDao = clienteDao;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override

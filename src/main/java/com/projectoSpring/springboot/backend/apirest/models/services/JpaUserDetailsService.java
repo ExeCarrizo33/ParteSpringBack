@@ -24,8 +24,6 @@ public class JpaUserDetailsService implements UserDetailsService {
     @Autowired
     private IUserDao iUserDao;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     @Override
@@ -43,7 +41,7 @@ public class JpaUserDetailsService implements UserDetailsService {
                 .collect(Collectors.toList());
 
         return new org.springframework.security.core.userdetails.User(username,
-                passwordEncoder.encode(user.getPassword()),
+                user.getPassword(),
                 true,
                 true,
                 true,

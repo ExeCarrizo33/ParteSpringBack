@@ -3,6 +3,7 @@ package com.projectoSpring.springboot.backend.apirest.auth;
 
 import com.projectoSpring.springboot.backend.apirest.auth.filter.JwtAuthenticationFilter;
 import com.projectoSpring.springboot.backend.apirest.auth.filter.JwtValidationFilter;
+import com.projectoSpring.springboot.backend.apirest.models.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -10,9 +11,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -36,10 +40,14 @@ public class SpringSecurityConfig {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+    @Autowired
+    private UserDetailsService usuarioService;
+
     @Bean
-    PasswordEncoder passwordEncoder() {
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -47,7 +55,7 @@ public class SpringSecurityConfig {
         return http.authorizeHttpRequests(authHttp ->
                 authHttp
                         .requestMatchers(HttpMethod.GET, "api/clientes", "api/clientes/page/{page}").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/clientes/{}").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/clientes/{id}").hasAnyRole("USER", "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/clientes").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/clientes/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/clientes/{id}").hasRole("ADMIN")
