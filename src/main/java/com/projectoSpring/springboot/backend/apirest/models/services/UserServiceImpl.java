@@ -7,12 +7,14 @@ import com.projectoSpring.springboot.backend.apirest.repositories.RoleRepository
 import com.projectoSpring.springboot.backend.apirest.repositories.UserRepository;
 import org.springframework.lang.NonNull;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository repository;
@@ -77,6 +79,7 @@ public class UserServiceImpl implements UserService {
 
         if (user.isAdmin()){
             Optional<Role> optionalRoleAdmin = roleRepository.findByName("ROLE_ADMIN");
+            optionalRoleAdmin.ifPresent(roles::add);
         }
         return roles;
     }

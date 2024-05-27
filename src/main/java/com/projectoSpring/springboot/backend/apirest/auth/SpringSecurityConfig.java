@@ -54,8 +54,10 @@ public class SpringSecurityConfig {
 
         return http.authorizeHttpRequests(authHttp ->
                 authHttp
-                        .requestMatchers(HttpMethod.GET, "api/clientes", "api/clientes/page/{page}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/clientes", "api/clientes/page/**", "/api/uploads/img/**", "/img/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/clientes/{id}").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/clientes/regions").hasAnyRole( "ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/clientes/upload").hasAnyRole( "ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/clientes").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/clientes/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/clientes/{id}").hasRole("ADMIN")
@@ -74,7 +76,7 @@ public class SpringSecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOriginPatterns(Arrays.asList("*"));
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
 

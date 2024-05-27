@@ -2,6 +2,7 @@ package com.projectoSpring.springboot.backend.apirest.models.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.projectoSpring.springboot.backend.apirest.models.services.IUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -21,7 +22,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User implements Serializable, IUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,5 +81,7 @@ public class User implements Serializable {
     }
 
     private static final long serialVersionUID = 1L;
+
+
 
 }

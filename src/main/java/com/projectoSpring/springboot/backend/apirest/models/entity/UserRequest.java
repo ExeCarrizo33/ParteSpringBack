@@ -24,4 +24,12 @@ public class UserRequest implements IUser {
     private String username;
 
     private boolean admin;
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
 }
