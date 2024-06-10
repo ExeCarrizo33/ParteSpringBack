@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserService {
+public interface  UserService {
 
     List<User> findAll();
 

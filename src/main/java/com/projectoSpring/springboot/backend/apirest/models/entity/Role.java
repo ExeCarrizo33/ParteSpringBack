@@ -1,14 +1,14 @@
 package com.projectoSpring.springboot.backend.apirest.models.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
 
-@Setter
-@Getter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "roles")
 public class Role implements Serializable {
@@ -19,9 +19,6 @@ public class Role implements Serializable {
 
     @Column(unique = true,length = 20)
     private String name;
-
-    public Role() {}
-
 
     private static final long serialVersionUID = 1L;
 

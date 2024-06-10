@@ -1,12 +1,10 @@
-package com.projectoSpring.springboot.backend.apirest.models.services;
+package com.projectoSpring.springboot.backend.apirest.models.services.Impl;
 
-import com.projectoSpring.springboot.backend.apirest.controllers.ClienteRestController;
+import com.projectoSpring.springboot.backend.apirest.models.services.IUploadFileService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -16,7 +14,6 @@ import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Map;
 import java.util.UUID;
 
 @Service

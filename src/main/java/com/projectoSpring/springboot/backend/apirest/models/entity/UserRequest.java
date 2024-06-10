@@ -3,11 +3,11 @@ package com.projectoSpring.springboot.backend.apirest.models.entity;
 import com.projectoSpring.springboot.backend.apirest.models.services.IUser;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class UserRequest implements IUser {
 
     @NotBlank
@@ -25,11 +25,5 @@ public class UserRequest implements IUser {
 
     private boolean admin;
 
-    public boolean isAdmin() {
-        return admin;
-    }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
 }

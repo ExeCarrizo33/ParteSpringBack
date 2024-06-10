@@ -1,12 +1,14 @@
-package com.projectoSpring.springboot.backend.apirest.models.services;
+package com.projectoSpring.springboot.backend.apirest.models.services.Impl;
 
 import com.projectoSpring.springboot.backend.apirest.models.entity.Role;
 import com.projectoSpring.springboot.backend.apirest.models.entity.User;
 import com.projectoSpring.springboot.backend.apirest.models.entity.UserRequest;
+import com.projectoSpring.springboot.backend.apirest.models.services.IUser;
+import com.projectoSpring.springboot.backend.apirest.models.services.UserService;
 import com.projectoSpring.springboot.backend.apirest.repositories.RoleRepository;
 import com.projectoSpring.springboot.backend.apirest.repositories.UserRepository;
 import org.springframework.lang.NonNull;
-import org.springframework.security.crypto.password.PasswordEncoder;
+//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,13 +22,13 @@ public class UserServiceImpl implements UserService {
     private UserRepository repository;
     private RoleRepository roleRepository;
 
-    private PasswordEncoder passwordEncoder;
+//    private PasswordEncoder passwordEncoder;
 
-    public UserServiceImpl(UserRepository repository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
-        this.repository = repository;
-        this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+//    public UserServiceImpl(UserRepository repository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+//        this.repository = repository;
+//        this.roleRepository = roleRepository;
+//        this.passwordEncoder = passwordEncoder;
+//    }
 
     @Override
     public List<User> findAll() {
@@ -43,7 +45,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
         user.setRoles(getRoles((IUser) user));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+//        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return repository.save(user);
     }
 

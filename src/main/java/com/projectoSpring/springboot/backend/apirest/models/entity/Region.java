@@ -1,13 +1,13 @@
 package com.projectoSpring.springboot.backend.apirest.models.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
-@Setter
-@Getter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "regions")
 public class Region implements Serializable {

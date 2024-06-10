@@ -7,16 +7,17 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
-@Setter
-@Getter
+@Data
+@AllArgsConstructor
 @Entity
 @Table(name="clientes")
 public class Cliente implements Serializable {
@@ -50,6 +51,14 @@ public class Cliente implements Serializable {
     @JoinColumn(name = "region_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
     private Region region;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer","handler","facturas"})
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cliente", cascade = CascadeType.ALL)
+    private List<Factura> facturas;
+
+    public Cliente(){
+        this.facturas = new ArrayList<>();
+    }
 
 
     private static final long serialVersionUID = 1L;
