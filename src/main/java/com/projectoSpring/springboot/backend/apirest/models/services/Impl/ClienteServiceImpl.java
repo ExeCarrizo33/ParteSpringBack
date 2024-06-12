@@ -4,8 +4,10 @@ import java.util.List;
 
 import com.projectoSpring.springboot.backend.apirest.models.dao.IClienteDao;
 import com.projectoSpring.springboot.backend.apirest.models.dao.IFacturaDao;
+import com.projectoSpring.springboot.backend.apirest.models.dao.IProdutoDao;
 import com.projectoSpring.springboot.backend.apirest.models.entity.Cliente;
 import com.projectoSpring.springboot.backend.apirest.models.entity.Factura;
+import com.projectoSpring.springboot.backend.apirest.models.entity.Producto;
 import com.projectoSpring.springboot.backend.apirest.models.entity.Region;
 import com.projectoSpring.springboot.backend.apirest.models.services.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class ClienteServiceImpl implements IClienteService {
 
     @Autowired
     private IFacturaDao facturaDao;
+
+    @Autowired
+    private IProdutoDao produtoDao;
 
 
     public ClienteServiceImpl(IClienteDao clienteDao) {
@@ -83,6 +88,12 @@ public class ClienteServiceImpl implements IClienteService {
     @Transactional
     public void deleteFacturaById(Long id) {
         facturaDao.deleteById(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Producto> findProductoByNombre(String term) {
+        return produtoDao.findByNombreContainingIgnoreCase(term);
     }
 
 

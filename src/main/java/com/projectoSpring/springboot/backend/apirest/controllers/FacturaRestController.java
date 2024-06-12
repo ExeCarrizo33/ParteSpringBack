@@ -1,11 +1,14 @@
 package com.projectoSpring.springboot.backend.apirest.controllers;
 
 import com.projectoSpring.springboot.backend.apirest.models.entity.Factura;
+import com.projectoSpring.springboot.backend.apirest.models.entity.Producto;
 import com.projectoSpring.springboot.backend.apirest.models.services.IClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = { "http://localhost:4200" })
 @RestController
@@ -27,5 +30,11 @@ public class FacturaRestController {
         clienteService.deleteFacturaById(id);
     }
 
+
+    @GetMapping("/facturas/filtrar-productos/{term}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Producto> filtrarProductos(@PathVariable String term){
+        return clienteService.findProductoByNombre(term);
+    }
 
 }
